@@ -251,7 +251,7 @@ static void rcar_du_crtc_set_display_timing(struct rcar_du_crtc *rcrtc)
 		u32 parallel_out;
 		struct cpg_param param;
 		int lanes, bpp;
-		u32 pix_clk = mode->clock * 1000;
+		u32 pix_clk = mode->clock * 10000;
 		unsigned long long hs_clk;
 		unsigned long long pll5_clk, foutvco;
 		unsigned long long divide_val;
@@ -1085,7 +1085,8 @@ static void rcar_du_crtc_atomic_enable(struct drm_crtc *crtc,
 
 	if(open_f){
 		DRM_INFO("[rcar_du_crtc_atomic_enable]: first\n");
-		rcar_du_group_start_stop(rcrtc->group, false);	
+		// rcar_du_group_start_stop(rcrtc->group, false);	
+
 		reset_control_assert(rcrtc->rstc);
 		reset_control_deassert(rcrtc->rstc);
 		rcar_du_crtc_set_display_timing(rcrtc);

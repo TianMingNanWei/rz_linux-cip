@@ -1744,16 +1744,18 @@ static const struct panel_desc edt_etm043080dh6gp = {
 	.connector_type = DRM_MODE_CONNECTOR_DPI,
 };
 
+
 static const struct drm_display_mode fire_c05c4827_mode = {
-	.clock = 9000,
+	.clock = 10870,
 	.hdisplay = 480,
-	.hsync_start = 480 + 5,
-	.hsync_end = 480 + 5 + 1,
-	.htotal = 480 + 5 + 1 + 40,
+	.hsync_start = 480 + 2,
+	.hsync_end = 480 + 2 + 41,
+	.htotal = 480 + 2 + 41 + 2,
 	.vdisplay = 272,
-	.vsync_start = 272 + 8,
-	.vsync_end = 272 + 8 + 1,
-	.vtotal = 272 + 8 + 1 + 8,
+	.vsync_start = 272 + 2,
+	.vsync_end = 272 + 2 + 10,
+	.vtotal = 272 + 2 + 10 + 2,
+	.flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC,
 };
 
 static const struct panel_desc fire_c05c4827 = {
