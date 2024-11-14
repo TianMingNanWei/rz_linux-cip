@@ -21,7 +21,7 @@
 
 	memory@48000000 {
 		device_type = "memory";
-		/* first 128MB is reserved for secure area. */
+		/* first 128MB is reserved for secure area. + uboot reserved  */
 		reg = <0x0 0x48000000 0x0 0x38000000>;
 	};
 
@@ -30,11 +30,16 @@
 		#size-cells = <2>;
 		ranges;
 
+		uboot_reserved: linux,uboot_frame_buffer {
+			no-map;
+			reg = <0x0 0x58000000 0x0 0x08000000>;
+		};
+
 		global_cma: linux,cma@58000000 {
 			compatible = "shared-dma-pool";
 			linux,cma-default;
 			reusable;
-			reg = <0x0 0x58000000 0x0 0x10000000>;
+			reg = <0x0 0x60000000 0x0 0x08000000>;
 		};
 
 		mmp_reserved: linux,multimedia {

@@ -1626,6 +1626,7 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper,
 	}
 	mutex_unlock(&client->modeset_mutex);
 
+	DRM_INFO("[drm_fb_helper_single_fb_probe]: crtc_count:%d, sizes.fb_width:%d, sizes.fb_height:%d\n",crtc_count, sizes.fb_width, sizes.fb_height);
 	if (crtc_count == 0 || sizes.fb_width == -1 || sizes.fb_height == -1) {
 		drm_info(dev, "Cannot find any crtc or sizes\n");
 

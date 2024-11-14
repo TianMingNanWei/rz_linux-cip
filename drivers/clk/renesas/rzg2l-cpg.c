@@ -32,6 +32,8 @@
 
 #include <dt-bindings/clock/renesas-cpg-mssr.h>
 
+#include <drm/drm_print.h>
+
 #include "rzg2l-cpg.h"
 
 #ifdef DEBUG
@@ -1015,9 +1017,20 @@ static int rzg2l_mod_clock_endisable(struct clk_hw *hw, bool enable)
 		mstop_val = MSTOP_BIT(clock->mstop) << 16
 			  | MSTOP_BIT(clock->mstop);
 
-		if (clock->mstop)
-			writel(mstop_val, priv->base + MSTOP_OFF(clock->mstop));
-		writel(value, priv->base + CLK_ON_R(reg));
+		if(CLK_RST_R(reg) == 0x568){
+			DRM_INFO("Skip 0x568");
+		}
+		else if(CLK_RST_R(reg) == 0x56C){
+			DRM_INFO("Skip 0x56c");
+		}
+		else{
+			if (clock->mstop){
+				DRM_INFO("Endisable 3:%x:%x",priv->base + MSTOP_OFF(clock->mstop),mstop_val);
+				writel(mstop_val, priv->base + MSTOP_OFF(clock->mstop));
+			}
+			writel(value, priv->base + CLK_ON_R(reg));
+			DRM_INFO("Endisable 4:%x:%x",priv->base + CLK_RST_R(reg),value);
+		}
 	}
 
 	if (!enable)

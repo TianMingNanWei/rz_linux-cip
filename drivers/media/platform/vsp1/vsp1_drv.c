@@ -818,6 +818,7 @@ static int vsp1_probe(struct platform_device *pdev)
 		return -ENOMEM;
 
 	vsp1->dev = &pdev->dev;
+	vsp1->is_init_done = 0;
 	INIT_LIST_HEAD(&vsp1->entities);
 	INIT_LIST_HEAD(&vsp1->videos);
 
@@ -866,16 +867,18 @@ static int vsp1_probe(struct platform_device *pdev)
 	/* Configure device parameters based on the version register. */
 	pm_runtime_enable(&pdev->dev);
 
-	ret = vsp1_device_get(vsp1);
-	if (ret < 0)
-		goto done;
+	// ret = vsp1_device_get(vsp1);
+	// if (ret < 0)
+	// 	goto done;
 
-	if (soc_device_match(rzg2l_match))
-		vsp1->version = VI6_IP_VERSION_MODEL_VSPD_RZG2L;
-	else
-		vsp1->version = vsp1_read(vsp1, VI6_IP_VERSION);
+	// if (soc_device_match(rzg2l_match))
+	// 	vsp1->version = VI6_IP_VERSION_MODEL_VSPD_RZG2L;
+	// else
+	// 	vsp1->version = vsp1_read(vsp1, VI6_IP_VERSION);
 
-	vsp1_device_put(vsp1);
+	// vsp1_device_put(vsp1);
+
+	vsp1->version = VI6_IP_VERSION_MODEL_VSPD_RZG2L;
 
 	for (i = 0; i < ARRAY_SIZE(vsp1_device_infos); ++i) {
 		if ((vsp1->version & VI6_IP_VERSION_MODEL_MASK) ==
@@ -901,6 +904,7 @@ static int vsp1_probe(struct platform_device *pdev)
 		goto done;
 	}
 
+	vsp1->is_init_done = 1;
 done:
 	if (ret) {
 		pm_runtime_disable(&pdev->dev);

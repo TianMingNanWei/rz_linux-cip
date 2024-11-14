@@ -640,12 +640,16 @@ static int adv7511_get_modes(struct adv7511 *adv7511,
 	struct edid *edid;
 	unsigned int count;
 
-	edid = adv7511_get_edid(adv7511, connector);
+	// edid = adv7511_get_edid(adv7511, connector);
 
-	drm_connector_update_edid_property(connector, edid);
-	count = drm_add_edid_modes(connector, edid);
+	// drm_connector_update_edid_property(connector, edid);
+	// count = drm_add_edid_modes(connector, edid);
 
-	kfree(edid);
+	// kfree(edid);
+
+	count = drm_add_modes_noedid(connector, 1920,1080);
+
+	DRM_INFO("[adv7511_get_modes]: count:%d\n",count);
 
 	return count;
 }

@@ -103,6 +103,8 @@ struct vsp1_device {
 	struct media_entity_operations media_ops;
 
 	struct vsp1_drm *drm;
+
+	bool is_init_done;
 };
 
 int vsp1_device_get(struct vsp1_device *vsp1);
@@ -117,7 +119,9 @@ static inline u32 vsp1_read(struct vsp1_device *vsp1, u32 reg)
 
 static inline void vsp1_write(struct vsp1_device *vsp1, u32 reg, u32 data)
 {
-	iowrite32(data, vsp1->mmio + reg);
+	if(vsp1->is_init_done){
+	    iowrite32(data, vsp1->mmio + reg);
+    }
 }
 
 #endif /* __VSP1_H__ */
