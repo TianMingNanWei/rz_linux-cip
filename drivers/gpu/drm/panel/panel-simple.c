@@ -1746,7 +1746,7 @@ static const struct panel_desc edt_etm043080dh6gp = {
 
 
 static const struct drm_display_mode fire_c05c4827_mode = {
-	.clock = 10870,
+	.clock = 4500,
 	.hdisplay = 480,
 	.hsync_start = 480 + 2,
 	.hsync_end = 480 + 2 + 41,
