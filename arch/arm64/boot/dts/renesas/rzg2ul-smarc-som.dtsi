@@ -30,10 +30,11 @@
 		#size-cells = <2>;
 		ranges;
 
-		uboot_reserved: linux,uboot_frame_buffer {
-			no-map;
-			reg = <0x0 0x58000000 0x0 0x08000000>;
-		};
+        framebuffer_reserved: framebuffer@58000000 {
+            compatible = "shared-dma-pool";
+            reg = <0x0 0x58000000 0x0 0x8000000>; // 从0x58000000开始,大小128MB
+            no-map; // 防止内核映射这块内存
+        };
 
 		global_cma: linux,cma@58000000 {
 			compatible = "shared-dma-pool";
@@ -48,6 +49,12 @@
 			reg = <0x00000000 0x68000000 0x0 0x8000000>;
 		};
 	};
+
+	rcar_mem_fb {
+        compatible = "rcar,mem-fb";
+        memory-region = <&framebuffer_reserved>;
+        status = "okay";
+    };
 
 	mmngr {
 		compatible = "renesas,mmngr";
